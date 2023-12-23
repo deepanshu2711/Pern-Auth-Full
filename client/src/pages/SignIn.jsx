@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import {Link ,useNavigate} from "react-router-dom";
+import { signInStart,signInFailure,signInSuccess } from '../redux/user/slice.js';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function SignIn(props) {
     const[formdata,setformdata] = useState({});
-    const[loading , setloading] = useState(false);
-    const[error,seterror] = useState(false);
+    const {error ,loading } = useSelector((state) =>state.user);
     const navigate =useNavigate();
+    const dispatch = useDispatch();
 
     function handleChange(e) {
         setformdata({...formdata , [e.target.id] : e.target.value})
     }
 
     async function handleSubmit(e) {
+          e.preventDefault();
         try {
-        e.preventDefault();
-        setloading(true);
-        seterror(false);
+            dispatch(signInStart());
         const res = await fetch("/api/auth/signin" ,{
             method:'POST',
             headers:{
@@ -24,15 +26,14 @@ function SignIn(props) {
             body:JSON.stringify(formdata),
         }); //we add a proxy in vite.config.js file
         const data = await res.json();
-        setloading(false);
         if(data.success === false){
-            seterror(true)
+            dispatch(signInFailure(data));
             return;
         }
+        dispatch(signInSuccess(data));
         navigate('/');
         } catch (error) {
-            setloading(false);
-            seterror(true);
+            dispatch(signInFailure(error))
         }
         
     }
@@ -54,7 +55,7 @@ function SignIn(props) {
                 </Link>
             </div>
             <div>
-                <p className='text-red-700 mt-5'>{error ?"something went wrong" : null}</p>
+                <p className='text-red-700 mt-5'>{error ? error.message ||"something went wrong !" : null}</p>
             </div>
             
         </div>
