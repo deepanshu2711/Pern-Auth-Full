@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link ,useNavigate} from "react-router-dom";
 
 function SignUp(props) {
     const[formdata,setformdata] = useState({});
     const[loading , setloading] = useState(false);
     const[error,seterror] = useState(false);
+    const navitage =useNavigate();
 
     function handleChange(e) {
         setformdata({...formdata , [e.target.id] : e.target.value})
@@ -28,6 +29,7 @@ function SignUp(props) {
             seterror(true)
             return;
         }
+        navitage('/signin')
         } catch (error) {
             setloading(false);
             seterror(true);
