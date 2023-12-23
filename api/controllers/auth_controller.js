@@ -35,3 +35,23 @@ export const signin = async(req,res,next)=>{
     }
 }
 
+export const google = async(req,res,next) =>{
+    const email = req.body.email;
+    try {
+        const user = await db.query("select * from users where email = $1",[email]);
+        if(user.rows.length >0){
+            const token = jwt.sign({id:user.rows[0].id},process.env.JWT_Secret);
+            res.cookie('access_token',token ,{httpOnly:true}).status(200).json(user.rows[0]);
+        }else{
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashedPassword = bcryptjs.hashSync(generatedPassword,10);
+            const newUser = await db.query("insert into users (username,email,password,profilepicture) values ($1,$2,$3,$4) returning *",[req.body.name.split(' ').join('').toLowerCase()+Math.floor(Math.random()*10000).toString(),
+            req.body.email,hashedPassword,req.body.photo]);
+            const token = jwt.sign({id: newUser.rows[0].id} , process.env.JWT_Secret);
+            res.cookie('access_token' ,token ,{httpOnly:true}).status(200).json(newUser.rows[0]);;
+        }
+        
+    } catch (error) {
+        next(error)
+    }
+}
