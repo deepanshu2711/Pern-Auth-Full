@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import {errorHandler} from "../utils/error.js"
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
+import e from "express";
 dotenv.config();
 
 export const signup = async(req,res ,next) =>{  // req is the data we get from the client side 
@@ -54,4 +55,10 @@ export const google = async(req,res,next) =>{
     } catch (error) {
         next(error)
     }
+}
+
+
+
+export const signOut = (req,res) =>{
+    res.clearCookie('access_token').status(200).json('User has been signed out');
 }
