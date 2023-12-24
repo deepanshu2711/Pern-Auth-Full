@@ -1,32 +1,23 @@
 import React from 'react';
 
-function Home(props) {
-    return (
-        <div className='  mx-5 flex flex-col justify-top h-screen items-center gap-12'>
-           <h1 className='text-3xl font-semibold mt-12'>Welocme to my Auth app</h1>
-           <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. 
-           It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-           It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-            with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
-
-           <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-            The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', 
-            making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, 
-            and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years,
-            sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-
-
-           <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, 
-           or randomised words which don't look even slightly believable.
-            If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-             All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. 
-             It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. 
-           The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+export default function Home() {
+  return (
+    <div className='  mx-5 flex flex-col justify-top h-screen items-center gap-12'>
+          <h1 className='text-3xl font-semibold mt-12'>Welcome to my Auth app</h1>
+           <p className='p-12'>
+        This is a full-stack web application built with the PERN (PostgresQL,
+        Express, React, Node.js) stack. It includes authentication features that
+        allow users to sign up, log in, and log out, and provides access to
+        protected routes only for authenticated users.
+        The front-end of the application is built with React and uses React
+        Router for client-side routing. The back-end is built with Node.js and
+        Express, and uses PostgresQL as the database. Authentication is implemented
+        using JSON Web Tokens (JWT).
+        This application is intended as a starting point for building full-stack
+        web applications with authentication using the MERN stack. Feel free to
+        use it as a template for your own projects!
+      </p>
         </div>
-    );
+    
+  );
 }
-
-export default Home;
